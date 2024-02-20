@@ -3,11 +3,11 @@ const InputPrompt = require("../models/input-prompt");
 
 module.exports = {
   async sendText(req, res) {
-    const openaiApi = openai.cofinguration();
+    const openaiApi = openai.configuration();
     const inputModel = new InputPrompt(req.body);
 
     try {
-      const response = await openaiApi.createComplition(
+      const response = await openaiApi.createCompletion(
         openai.textCompletion(inputModel)
       );
 
@@ -19,7 +19,7 @@ module.exports = {
       return res.status(400).json({
         sucess: false,
         error: error.response
-          ? error.response
+          ? error.response.data
           : "There was an inssue on the server.",
       });
     }
